@@ -13,17 +13,23 @@ tags:
   - contratos
   - estratégia
 language: "pt-BR"
-deactivation_phrase: "DESATIVAR MODO CRÍTICO -- CONFIRMAR: TIAGO"
+deactivation_phrase: "ENV:SKILL_DEACTIVATION_PHRASE (não armazenar segredo no repositório)"
 type: "instruction"
 required_inputs:
   - process_number
   - court
-  - main_document (pdf/docx)
-  - evidence_files (zip/array)
+  - main_document
+  - evidence_files
+input_types:
+  process_number: "string (ex.: 0000000-00.0000.0.00.0000)"
+  main_document: "pdf|docx"
+  evidence_files: "zip|array"
 sensitive_data: true
 license: "Proprietary"
 example_usage: "python3 Auditor-Forense/run_audit.py --input path/to/peça.pdf --process 0000000-00.0000.0.00.0000"
 contact: "tiagoneves.jus@gmail.com"
+python_version: ">=3.8"
+data_handling: "ver README.md para política de tratamento e retenção de dados"
 ---
 
 INSTRUÇÃO PERMANENTE — Auditor Forense Jurídico (Modo Crítico Permanente)
@@ -73,14 +79,14 @@ ENTRADAS NECESSÁRIAS
 OBSERVAÇÃO: sem as entradas acima, a análise será emitida como hipótese técnica e NÃO conclusiva. Solicite os documentos faltantes antes de proceder.
 
 CHECKLIST MÍNIMO PARA ANÁLISE
-1) Verificar competência e competência territorial do juízo.
+1) Verificar competência material e competência territorial do juízo.
 2) Conferir prazos (contagem, feriados, intimações).
 3) Validar provas essenciais (assinaturas, perícias, autenticações).
 4) Identificar nulidades formais (qualificação, procuração, preparo).
 5) Mapear pedidos acessórios (tutela, honorários, sucumbência).
 
 MODO DE DESATIVAÇÃO
-A desativação do Modo Crítico exige confirmação administrativa: use a frase exata definida no YAML e confirmação por auditor responsável; recomenda-se implementação de autorização/credential para operações de produção.
+A desativação do Modo Crítico exige confirmação administrativa. Não armazene frases secretas no repositório — use variável de ambiente ou secret manager (ex.: SKILL_DEACTIVATION_PHRASE).
 
 EXEMPLO RÁPIDO
 Resumo: Recurso especial por violação literal de dispositivo, mas sem demonstração da divergência jurisprudencial.

@@ -6,13 +6,16 @@ Avisos importantes
 - Esta ferramenta fornece análises TÉCNICAS e HIPOTÉTICAS com base no material fornecido. Não substitui parecer formal de advogado habilitado.
 - Nunca envie documentos sigilosos sem autorização.
 
-Como executar (exemplo)
-1. Faça checkout na branch auditor-forense:
-   git fetch origin
-   git checkout auditor-forense
+Recomendações rápidas antes de rodar localmente
+- Use virtualenv/venv:
+  python3 -m venv .venv
+  source .venv/bin/activate
+  pip install -r requirements.txt  # adicionar requirements.txt conforme necessidade
 
-2. Execute o script de teste (substitua pelos caminhos corretos):
-   python3 Auditor-Forense/run_audit.py --input path/to/peça.pdf --process 0000000-00.0000.0.00.0000
+- Não comite arquivos de entrada nem documentos sigilosos. Adicione uma linha em .gitignore (ex.: /tests_inputs/ ou /samples/).
+
+- Rodando com saída JSON (para integração):
+  python3 Auditor-Forense/run_audit.py --input path/to/peça.pdf --process 0000000-00.0000.0.00.0000 --json-output
 
 O que validar localmente
 - Que o arquivo de entrada exista e seja .pdf ou .docx
@@ -26,3 +29,5 @@ Checklist para revisão antes do merge
 
 Contato
 - Responsável pelo conteúdo: tiagoneves.jus@gmail.com
+
+Sugestão: adicionar workflow de CI para lint (ruff/flake8) e testes unitários (pytest).
