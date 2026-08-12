@@ -1,0 +1,14 @@
+# Documentos e entradas sigilosas — nunca versionar
+/samples/
+/tests_inputs/
+*.pdf
+*.docx
+*.report.txt
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Sistema
+.DS_Store

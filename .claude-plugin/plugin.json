@@ -1,0 +1,21 @@
+{
+  "name": "tnadv-juridico",
+  "description": "Skills jurídicas do escritório Tiago Neves Advocacia Empresarial: auditoria forense crítica de peças, recursos, contratos e estratégias processuais.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Tiago Luiz Rodrigues Neves",
+    "email": "tiagoneves.jus@gmail.com"
+  },
+  "homepage": "https://github.com/tiagonevesjus-png/tnadv-manus-skill",
+  "repository": "https://github.com/tiagonevesjus-png/tnadv-manus-skill",
+  "license": "Proprietary",
+  "keywords": [
+    "direito",
+    "advocacia",
+    "auditoria-forense",
+    "processo",
+    "recursos",
+    "contratos",
+    "pt-BR"
+  ]
+}

@@ -22,7 +22,7 @@ def load_config(path: Path):
     except FileNotFoundError:
         return None
     except json.JSONDecodeError as e:
-        print(f"AVISO: arquivo de configuração inválido ({path}): {e}")
+        print(f"AVISO: arquivo de configuração inválido ({path}): {e}", file=sys.stderr)
         return None
 
 
@@ -32,18 +32,18 @@ def validate_input_file(path: Path):
     except Exception:
         p = path
     if not p.exists() or not p.is_file():
-        print(f"ERRO: arquivo inexistente ou inválido: {p}")
+        print(f"ERRO: arquivo inexistente ou inválido: {p}", file=sys.stderr)
         return False
     if p.suffix.lower() not in ALLOWED_EXT:
-        print(f"ERRO: extensão não permitida: {p.suffix}. Permitidas: {', '.join(sorted(ALLOWED_EXT))}")
+        print(f"ERRO: extensão não permitida: {p.suffix}. Permitidas: {', '.join(sorted(ALLOWED_EXT))}", file=sys.stderr)
         return False
     try:
         size = p.stat().st_size
     except OSError as e:
-        print(f"ERRO ao acessar arquivo: {e}")
+        print(f"ERRO ao acessar arquivo: {e}", file=sys.stderr)
         return False
     if size > MAX_FILE_SIZE_BYTES:
-        print(f"ERRO: arquivo muito grande ({size} bytes). Máx: {MAX_FILE_SIZE_BYTES} bytes")
+        print(f"ERRO: arquivo muito grande ({size} bytes). Máx: {MAX_FILE_SIZE_BYTES} bytes", file=sys.stderr)
         return False
     return True
 
@@ -57,29 +57,32 @@ def main():
     parser.add_argument('--json-output', action='store_true', help='Imprime resumo em JSON (para integração)')
     args = parser.parse_args()
 
+    # Mensagens informativas vão para stderr, para não poluir a saída JSON de integração.
+    info = sys.stderr
+
     config_path = Path(__file__).with_name(args.config)
     cfg = load_config(config_path)
     if cfg is None:
         if not args.quiet:
-            print(f"Aviso: arquivo de configuração não encontrado ou inválido: {config_path}. Usando parâmetros mínimos.")
+            print(f"Aviso: arquivo de configuração não encontrado ou inválido: {config_path}. Usando parâmetros mínimos.", file=info)
     else:
         if not args.quiet:
-            print(f"Carregado config: {cfg.get('name', 'N/A')} v{cfg.get('version', 'N/A')}")
+            print(f"Carregado config: {cfg.get('name', 'N/A')} v{cfg.get('version', 'N/A')}", file=info)
 
     input_path = Path(args.input)
     if not validate_input_file(input_path):
-        print("Validação do arquivo de entrada falhou. Corrija e tente novamente.")
+        print("Validação do arquivo de entrada falhou. Corrija e tente novamente.", file=sys.stderr)
         sys.exit(2)
 
     # Validação simples do número do processo (evita valores óbvios inválidos)
     # Aceita dígitos, pontos e hífens; veja SKILL.md para formato esperado
     if not re.match(r'^[\d.\-\\/]{5,}$', args.process):
-        print("AVISO: formato de número de processo aparentemente inválido. Confirme o valor.")
+        print("AVISO: formato de número de processo aparentemente inválido. Confirme o valor.", file=info)
 
     # Aviso de confidencialidade
     if not args.quiet:
-        print("\n=== AVISO DE CONFIDENCIALIDADE ===")
-        print("Documentos processados podem conter dados sensíveis. Assegure autorização e supervisão por advogado habilitado.")
+        print("\n=== AVISO DE CONFIDENCIALIDADE ===", file=info)
+        print("Documentos processados podem conter dados sensíveis. Assegure autorização e supervisão por advogado habilitado.", file=info)
 
     # Execução de análise (placeholder)
     result = {
