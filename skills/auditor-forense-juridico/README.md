@@ -15,7 +15,7 @@ Recomendações rápidas antes de rodar localmente
 - Não comite arquivos de entrada nem documentos sigilosos. Adicione uma linha em .gitignore (ex.: /tests_inputs/ ou /samples/).
 
 - Rodando com saída JSON (para integração):
-  python3 Auditor-Forense/run_audit.py --input path/to/peça.pdf --process 0000000-00.0000.0.00.0000 --json-output
+  python3 skills/auditor-forense-juridico/run_audit.py --input path/to/peça.pdf --process 0000000-00.0000.0.00.0000 --json-output
 
 O que validar localmente
 - Que o arquivo de entrada exista e seja .pdf ou .docx

@@ -1,0 +1,27 @@
+{
+  "name": "tnadv-manus-skill",
+  "owner": {
+    "name": "Tiago Luiz Rodrigues Neves",
+    "email": "tiagoneves.jus@gmail.com"
+  },
+  "metadata": {
+    "description": "Marketplace de plugins e skills jurídicas TNADV / Manus.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "tnadv-juridico",
+      "source": "./",
+      "description": "Skills jurídicas do escritório Tiago Neves Advocacia Empresarial: auditoria forense crítica de peças, recursos, contratos e estratégias processuais.",
+      "version": "1.0.0",
+      "category": "juridico",
+      "keywords": [
+        "direito",
+        "advocacia",
+        "auditoria-forense",
+        "processo",
+        "pt-BR"
+      ]
+    }
+  ]
+}
